@@ -95,19 +95,19 @@ public class WhatsappRepository {
         //If the message is sent successfully, return the final number of messages in that group.
 
         //non existent group
-        if(!groupUserMap.containsKey(group.getName())){
+        if(!groupUserMap.containsKey(group)){
             throw new Exception("Group does not exist");
         }
 
         //non existent group member
-        boolean checkUserInGroup = false;
+        boolean userInGroup = false;
         for(User user : groupUserMap.get(group)){
             if(sender.getMobile().equals(user.getMobile())){
-                checkUserInGroup = true;
+                userInGroup = true;
                 break;
             }
         }
-        if(!checkUserInGroup){
+        if(!userInGroup){
             throw new Exception("You are not allowed to send message");
         }
 
