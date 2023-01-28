@@ -26,8 +26,8 @@ public class WhatsappRepository {
     private int messageId;
 
     public WhatsappRepository(){
-        this.newUser = new HashMap<>();
-        this.messageContent = new HashMap<>();
+        this.newUser = new HashMap<String, User>();
+        this.messageContent = new HashMap<Integer, Message>();
 
         this.groupMessageMap = new HashMap<Group, List<Message>>();
         this.groupUserMap = new HashMap<Group, List<User>>();
@@ -35,7 +35,7 @@ public class WhatsappRepository {
         this.adminMap = new HashMap<Group, User>();
         this.userMobile = new HashSet<>();
         this.customGroupCount = 0;
-        this.messageId = -1;
+        this.messageId = 0;
     }
 
     public String createUser(String name, String mobile) throws Exception {
