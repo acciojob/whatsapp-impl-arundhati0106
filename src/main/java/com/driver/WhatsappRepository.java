@@ -14,8 +14,8 @@ public class WhatsappRepository {
     //Assume that each user belongs to at most one group
     //You can use the below mentioned hashmaps or delete these and create your own.
 
-    private HashMap<String, String> newUser;           //save name, phone of user
-    private HashMap<Integer, String> messageContent;   //send message to which number
+    private HashMap<String, User> newUser;              //save number, object of user
+    private HashMap<Integer, Message> messageContent;   //send message to which number
 
     private HashMap<Group, List<User>> groupUserMap;
     private HashMap<Group, List<Message>> groupMessageMap;
@@ -47,7 +47,8 @@ public class WhatsappRepository {
         }
 
         userMobile.add(mobile);
-        newUser.put(name, mobile);
+        User user = new User(name, mobile);
+        newUser.put(mobile, user);
 
         return "SUCCESS";
     }
@@ -84,7 +85,7 @@ public class WhatsappRepository {
 
         messageId++;
         Message message = new Message(messageId, content);
-        messageContent.put(messageId, content);
+        messageContent.put(messageId, message);
         return messageId;
     }
 

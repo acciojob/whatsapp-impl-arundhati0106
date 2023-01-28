@@ -13,6 +13,9 @@ public class Message {
         this.id = id;
         this.content = content;
     }
+    public Message() {
+        //default constructor
+    }
 
     //getters and setters
     public int getId() { return id; }

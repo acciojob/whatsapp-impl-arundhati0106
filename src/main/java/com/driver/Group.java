@@ -6,12 +6,12 @@ public class Group {
     private int numberOfParticipants;
 
     //constructor
-    public Group() {
-        //default constructor
-    }
     public Group(String name, int numberOfParticipants) {
         this.name = name;
         this.numberOfParticipants = numberOfParticipants;
+    }
+    public Group() {
+        //default constructor
     }
 
     //getters and setters
