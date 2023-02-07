@@ -152,7 +152,58 @@ public class WhatsappRepository {
         return "SUCCESS";
     }
 
-    public int removeUser(User user) throws Exception {
+    //didnt solve
+    public String findMessage(Date start, Date end, int K) throws Exception{
+        //This is a bonus problem and does not contains any marks
+        // Find the Kth latest message between start and end (excluding start and end)
+        // If the number of messages between given time is less than K, throw "K is greater than the number of messages" exception
+
+        return "didn't solve yet";
+    }
+
+    public int removeUser(User user) throws Exception{
+        //This is a bonus problem and does not contains any marks
+        //A user belongs to exactly one group
+        //If user is not found in any group, throw "User not found" exception
+        //If user is found in a group and it is the admin, throw "Cannot remove admin" exception
+        Group group = null;
+        for(Group g:groupUserMap.keySet()){//search if any group contain user
+            if(groupMessageMap.get(g).contains(user)){//if found
+                group=g;
+                break;
+            }
+        }
+        if(group==null){ //no group with user was found
+            throw new Exception("User not found");
+        }
+        if(adminMap.get(group).equals(user)){//passed user is group admin
+            throw new Exception("Cannot remove admin");
+        }
+        //If user is not the admin, remove the user from the group, remove all its messages from all the databases, and update relevant attributes accordingly.
+        //removed from group of users
+        groupUserMap.get(group).remove(user);
+        //delete all messages from group
+        List<Message> list=new ArrayList<>();
+        for(Message m:senderMap.keySet()){
+            if(senderMap.get(m).equals(user)){
+                groupMessageMap.get(group).remove(m);
+                list.add(m);
+            }
+        }
+
+        for(Message m:list){
+            senderMap.remove(m);
+        }
+
+        //If user is removed successfully, return (the updated number of users in the group + the updated number of messages in group + the updated number of overall messages)
+
+
+        return groupUserMap.get(group).size()+groupMessageMap.get(group).size()+senderMap.size();
+    }
+}
+
+/*
+public int removeUser1(User user) throws Exception {
         //This is a bonus problem and does not contains any marks
         //A user belongs to exactly one group
         //If user is not found in any group, throw "User not found" exception
@@ -195,18 +246,9 @@ public class WhatsappRepository {
             if(senderMap.get(message)==user1){
                 senderMap.remove(message);
             }
-            listOfMessage.remove(message);
+            listOfMessage.remove(message); //would throw an error, cant remove element from arraylist, while iterating
         }
 
         return groupUserMap.get(group1).size() + groupMessageMap.get(group1).size() + senderMap.size();
     }
-
-    //didnt solve
-    public String findMessage(Date start, Date end, int K) throws Exception{
-        //This is a bonus problem and does not contains any marks
-        // Find the Kth latest message between start and end (excluding start and end)
-        // If the number of messages between given time is less than K, throw "K is greater than the number of messages" exception
-
-        return "didn't solve yet";
-    }
-}
+ */
